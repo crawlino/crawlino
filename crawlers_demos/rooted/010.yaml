@@ -1,0 +1,45 @@
+name: RedisBasicScan
+description: Detect an open port in redis and Send a command
+tags:
+  - general
+  - basic
+  - port-scanner
+
+sources:
+- type: ip
+  config:
+    ip: 127.0.0.$generator(numeric, 1, 4)
+
+input:
+  type: raw_socket
+  config:
+    port: 6379
+    proto: tcp
+    timeout: 0.05
+    data: "$4\r\nINFO\r\n"
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: detect an open port
+      mapTo: redisVersion
+      report: host
+      inputVar: data
+      rules:
+        - type: regex
+          config:
+            reportGroup: 2
+            expressions:
+              - (redis_version:)([\d\.]+)(\r)
+
+hooks:
+  - type: mail
+    config:
+      from: $FROM_MAIL$
+      to: $TO_MAIL$
+      subject: Host with Redis open!
+      bodyField: redisVersion
+      server:
+        user: $FROM_MAIL$
+        smtp: smtp.gmail.com
+        password: $MAIL_PASSWORD$

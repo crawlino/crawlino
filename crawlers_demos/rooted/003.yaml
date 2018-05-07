@@ -1,0 +1,20 @@
+name: SimpleWebRequest
+description: Do a simple HTTP request
+tags:
+  - general
+  - basic
+
+sources:
+- type: web
+  config:
+    url: http://127.0.0.1:10000
+
+input:
+  type: web
+  config:
+    httpMethod: GET
+    timeout: 0.2
+    httpHeaders:
+      Host: $generator(random, string, 20, 20)
+    url: /?id=$generator(numeric, 1, 10)
+

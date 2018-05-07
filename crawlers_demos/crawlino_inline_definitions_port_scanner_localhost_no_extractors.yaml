@@ -1,0 +1,24 @@
+name: BasicScrappingCrawler
+description: Basic crawler for web scrapping
+tags:
+  - general
+  - basic
+  - port-scanner
+
+sources:
+- type: domain
+  config:
+    domain: 127.0.0.1
+
+input:
+  type: raw_socket
+  config:
+    port: $generator(numeric, 9990, 10001)
+    proto: tcp
+    timeout: 0.05
+    data: "GET / HTTP/1.1\r\n\r\n"
+
+hooks:
+-   type: print
+    config:
+      format: csv

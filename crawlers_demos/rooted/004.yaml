@@ -1,0 +1,30 @@
+name: SimpleWebRequest
+description: Do a simple HTTP request
+tags:
+  - general
+  - basic
+  - enumeration
+
+sources:
+- type: web
+  config:
+    url: http://127.0.0.1:10000
+
+input:
+  type: web
+  config:
+    httpMethod: GET
+    url: /?id=$generator(numeric, 1, 20)
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: check if server returns 200
+      mapTo: result
+      inputVar: status_code
+      rules:
+        - type: regex
+          config:
+            order: 1
+            expressions:
+              - 200

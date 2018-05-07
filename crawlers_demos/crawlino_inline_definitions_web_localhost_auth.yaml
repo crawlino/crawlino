@@ -1,0 +1,28 @@
+name: BasicScrappingCrawler
+sources:
+- type: url
+  config:
+    url: http://127.0.0.1:11000/user/auth
+
+input:
+  type: web
+  config:
+    httpMethod: POST
+    contentType: json
+    data: '{"user": "admin-$generator(random, string, 5, 20)", "password": "$generator(wordlist, password-small)"}'
+    url: /user/auth
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: check if server returns 200
+      mapTo: myVar
+      exitOnMatch: true
+      inputVar: content
+      report: request.data
+      rules:
+        - type: regex
+          config:
+            order: 1
+            expressions:
+              - Authentication done

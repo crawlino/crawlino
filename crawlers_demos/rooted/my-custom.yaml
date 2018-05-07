@@ -1,0 +1,11 @@
+name: MyCustomCrawler
+description: My custom crawler
+tags:
+  - custom
+extends: base-crawler.yaml
+
+input:
+  config:
+    httpHeaders:
+      Content-Type: application/x-www-form-urlencoded
+

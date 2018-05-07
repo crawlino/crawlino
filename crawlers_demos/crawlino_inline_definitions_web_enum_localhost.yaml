@@ -1,0 +1,53 @@
+name: BasicScrappingCrawler
+description: Basic crawler for web scrapping
+tags:
+  - general
+  - basic
+  - port-scanner
+
+sources:
+- type: web
+  config:
+    url: http://127.0.0.1:10000
+
+input:
+  type: web
+  config:
+    httpMethod: GET
+    url: /?id=$generator(wordlist, users)
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: do simple xpath search
+      mapTo: myVar
+      exitOnMatch: true
+      inputVar: status
+      rules:
+        - type: regex
+          config:
+            order: 1
+            reportGroup: 2
+            expressions:
+              - >
+                (closed/)([\w]+)
+
+        - type: regex
+          config:
+            order: 2
+            expressions:
+              - "open"
+
+hooks:
+  - type: mail
+    config:
+      from: cr0hn@cr0hn.com
+      to: daniel@abirtone.com
+      subjectField: status
+      bodyField: status
+      server:
+        smtp: smtp.gmail.com
+        user: $MAIL_USER$
+        password: $MAIL_PASSWORD$
+        port: 587
+        tls: True

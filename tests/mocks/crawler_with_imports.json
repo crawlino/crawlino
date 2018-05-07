@@ -1,0 +1,9 @@
+{
+  "name": "myCrawler",
+  "sources": "@import(sources_001)",
+  "config": "@import(config_001)",
+  "input": "@import(input_001)",
+  "extractors": "@import(extractor_001)",
+  "model": "@import(model_001)",
+  "hooks": "@import(hooks_001)"
+}

@@ -1,0 +1,33 @@
+name: RedisBasicScan
+description: Detect an open port in redis and Send a command
+tags:
+  - general
+  - basic
+  - port-scanner
+
+sources:
+- type: domain
+  config:
+    domain: 127.0.0.1
+
+input:
+  type: raw_socket
+  config:
+    port: $generator(numeric, 6378, 6380)
+    proto: tcp
+    timeout: 0.05
+    data: "$4\r\nINFO\r\n"
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: detect an open port
+      mapTo: redisVersion
+      report: group
+      inputVar: data
+      rules:
+        - type: regex
+          config:
+            reportGroup: 2
+            expressions:
+              - (redis_version:)([\d\.]+)(\r)

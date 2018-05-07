@@ -1,0 +1,12 @@
+{
+  "type": "rest",
+  "config": {
+    "httpMethod": "GET",
+    "httpType": "json",
+    "httpHeaders": {
+      "header1": "value1",
+      "header2": "value2"
+    },
+    "data": "my=ad5a&asdf=asdf"
+  }
+}

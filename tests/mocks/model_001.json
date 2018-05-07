@@ -1,0 +1,44 @@
+{
+  "name": "my_model_1",
+  "fields": [
+    {
+      "name": "url",
+      "type": "text",
+      "key": true
+    },
+
+    {
+      "name": "description",
+      "type": "text"
+    }
+  ],
+  "mappers": [
+    {
+      "stdout": {
+        "name": "stdout1"
+      }
+    },
+    {
+      "raw": {
+        "name": "file name",
+        "path": "asdf"
+      }
+    },
+    {
+      "csv": {
+        "name": "file name csv"
+      }
+    },
+    {
+      "database": {
+        "name": "mydatabase",
+        "host": "127.0.0.1",
+        "port": "27017",
+        "user": "user",
+        "database": "db",
+        "collection": "collection",
+        "password": "password"
+      }
+    }
+  ]
+}

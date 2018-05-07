@@ -1,0 +1,28 @@
+name: BasicScrappingCrawler
+description: Basic crawler for web scrapping
+tags:
+  - general
+  - basic
+
+config:
+- type: logger
+  config:
+    logLevel: 2
+
+sources:
+- type: url
+  config:
+    url: http://127.0.0.1:10000
+
+input:
+  type: web
+  config:
+    httpMethod: GET
+    httpHeaders:
+      header1: $generator(numeric, 1, 2)
+      header2: value2
+    url: /?id=1&user=admin-$generator(numeric, 1, 2)&password=$generator(numeric, 0, 20)-pwd
+
+hooks:
+- type: print
+

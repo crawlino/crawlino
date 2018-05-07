@@ -1,0 +1,5 @@
+{
+  "logger": "mylogger",
+  "sentryDSN": "asdf",
+  "remoteLoggerDSN": ""
+}

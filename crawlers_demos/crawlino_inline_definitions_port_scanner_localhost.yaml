@@ -1,0 +1,41 @@
+name: BasicScrappingCrawler
+description: Basic crawler for web scrapping
+tags:
+  - general
+  - basic
+  - port-scanner
+
+sources:
+- type: domain
+  config:
+    domain: 127.0.0.1
+
+input:
+  type: raw_socket
+  config:
+    port: $generator(values, 10000, 10001)
+    proto: tcp
+    timeout: 0.05
+    data: "GET / HTTP/1.1\r\n\r\n"
+
+extractors:
+  - ruleSet:
+      name: rule1
+      description: do simple xpath search
+      mapTo: myVar
+      exitOnMatch: true
+      inputVar: status
+      rules:
+        - type: regex
+          config:
+            order: 1
+            reportGroup: 2
+            expressions:
+              - >
+                (closed/)([\w]+)
+
+        - type: regex
+          config:
+            order: 2
+            expressions:
+              - "open"

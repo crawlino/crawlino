@@ -1,0 +1,51 @@
+[
+  {
+    "name": "MyCrawler",
+    "description": "blah",
+    "mainExtractor": true,
+    "fixedFields": [
+      {
+        "name": "fun_or_opo",
+        "value": 0
+      }
+    ],
+    "rules":
+    [
+      {
+        "name": "updated",
+        "rules":
+        [
+          {
+            "type": "xpath",
+            "encoder": {
+              "engine": "html",
+              "property": "href"
+            },
+            "expressions": ".//span/span/text()",
+            "order": 1
+          }
+        ],
+        "preActions" : [
+          {
+            "transforms": "@plainHTML()"
+          }
+        ],
+        "postActions": [
+
+        ]
+      },
+      {
+        "name": "description_as_clean_html",
+        "type": "text",
+        "transforms": "plainHTML",
+        "rules": [
+          {
+            "expression": ".//span/text()",
+            "property": "raw"
+          }
+        ]
+      }
+    ]
+
+  }
+]
